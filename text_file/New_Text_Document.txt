@@ -1,0 +1,66 @@
+Forward list in STL implements singly linked list. Introduced from C++11, 
+forward list are more useful than other containers in insertion, removal, 
+and moving operations (like sort) and allow time constant insertion and 
+removal of elements. 
+It differs from the list by the fact that the forward list keeps track of
+ the location of only the next element while the list keeps track of both
+ the next and previous elements, thus increasing the storage space required
+ to store each element. The drawback of a forward list is that it cannot be
+ iterated backward and its individual elements cannot be accessed directly. 
+Forward List is preferred over the list when only forward traversal is 
+required (same as the singly linked list is preferred over doubly linked
+ list) as we can save space. Some example cases are, chaining in hashing,
+ adjacency list representation of the graph, etc.
+Operations on Forward List:
+ 
+1. assign(): This function is used to assign values to the forward list, its
+ other variant is used to assign repeated elements and using the values of another 
+list.
+// C++ code to demonstrate forward list
+// and assign()
+#include <forward_list>
+#include <iostream>
+using namespace std;
+ 
+// Driver Code
+int main()
+{
+    // Declaring forward list
+    forward_list<int> flist1;
+ 
+    // Declaring another forward list
+    forward_list<int> flist2;
+   
+    //Declaring another forward list
+      forward_list<int> flist3;
+ 
+    // Assigning values using assign()
+    flist1.assign({ 1, 2, 3 });
+ 
+    // Assigning repeating values using assign()
+    // 5 elements with value 10
+    flist2.assign(5, 10);
+   
+   
+      //Assigning values of list 1 to list 3
+      flist3.assign(flist1.begin(), flist1.end());
+ 
+    // Displaying forward lists
+    cout << "The elements of first forward list are : ";
+    for (int& a : flist1)
+        cout << a << " ";
+    cout << endl;
+ 
+    cout << "The elements of second forward list are : ";
+    for (int& b : flist2)
+        cout << b << " ";
+    cout << endl;
+   
+       
+      cout << "The elements of third forward list are : ";
+    for (int& c : flist3)
+        cout << c << " ";
+    cout << endl;
+ 
+    return 0;
+}

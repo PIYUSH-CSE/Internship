@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% extends 'intern/base.html' %}
+{% block title %}
+    Upload Files
+{% endblock %}
+{% block body %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-4 video me-3 pt-3 pb-5">
+                    <label for="video_file"><h3><b>Video File</b></h3></label><br>
+                    <input type="file" id="video_file" name="video_file" onchange="videoFile()" required value="video" accept=".mp4">
+                    <div id="videoFilePreview"></div>
+                </div>
+                <div class="col-7 text pt-3 pb-5">
+                    <label for="text_file"><h3><b>Text File</b></h3></label><br>
+                    <input type="file" id="text_file" name="text_file" onchange="textFile()" required accept=".txt">
+                    <div id="textFilePreview"></div>
+                </div>
+            </div>
+        </div>
+        <div class="container d-flex align-items-center justify-content-center mt-1">
+            <button type="submit" onclick="window.alert('Saved Successfully')" class="btn btn-info">Submit</button>
+        </div>
+
+    </form>
+
+<script>
+    function videoFile() {
+        const fileInput = document.getElementById('video_file');
+        const filePreview = document.getElementById('videoFilePreview');
+        const file = fileInput.files[0];
+        const video = document.createElement('video');
+        video.src = URL.createObjectURL(file);
+        video.controls = true;
+        filePreview.innerHTML = '';
+        filePreview.appendChild(video);
+        fileInput.style.display = 'none';
+  }
+  function textFile() {
+        const fileInput = document.getElementById('text_file');
+        const filePreview = document.getElementById('textFilePreview');
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        reader.onload = (event) => {
+        const pre = document.createElement('pre');
+        pre.textContent = event.target.result;
+        filePreview.innerHTML = '';
+        filePreview.appendChild(pre);
+        };
+        reader.readAsText(file);
+        fileInput.style.display = 'none';
+        }
+
+</script>
+{% endblock %}
